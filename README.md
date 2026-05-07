@@ -1,4 +1,4 @@
-````md
+
 # QR Reader Discord Bot
 
 A Discord bot that automatically detects QR Codes from uploaded images, creates isolated user threads, extracts embedded URLs, and keeps channels clean by automatically removing uploaded QR images after processing.
@@ -34,7 +34,7 @@ Built with Node.js, Discord.js, Jimp, and jsQR.
 
 # Project Structure
 
-```bash
+```
 qr-bot/
 ├── events/
 │   └── messageCreate.js
@@ -52,7 +52,7 @@ qr-bot/
 ├── .env.example
 └── .gitignore
 ```
-````
+
 
 ---
 
@@ -172,7 +172,6 @@ Example Railway deployment flow:
 
 # Future Improvements
 
-- ZXing QR engine migration
 - Multi QR detection
 - Anti-spam system
 - Logging system
@@ -184,7 +183,3 @@ Example Railway deployment flow:
 # License
 
 MIT
-
-```
-
-```
