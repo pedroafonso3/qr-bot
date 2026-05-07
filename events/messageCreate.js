@@ -49,6 +49,9 @@ module.exports = async (message) => {
 
     await session.thread.send({
       files: [attachment.url],
+    });
+
+    await session.thread.send({
       content: `🔗 Link:\n${qrData}`,
     });
 
