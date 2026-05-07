@@ -52,9 +52,7 @@ module.exports = async (message) => {
       content: `🔗 Link:\n${qrData}`,
     });
 
-    if (isMainChannel) {
-      await message.delete().catch(() => {});
-    }
+    await message.delete().catch(() => {});
 
     resetTimeout(message.author.id, session);
 
