@@ -48,8 +48,8 @@ module.exports = async (message) => {
     }
 
     await session.thread.send({
-      content: `🔗 Link:\n${qrData}`,
       files: [attachment.url],
+      content: `🔗 Link:\n${qrData}`,
     });
 
     if (isMainChannel) {
