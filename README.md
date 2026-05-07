@@ -1,6 +1,7 @@
+````md
 # QR Reader Discord Bot
 
-A Discord bot that automatically reads QR Codes from uploaded images, extracts the embedded URL, sends it privately to the user via DM, and removes the original image message for better privacy and organization.
+A Discord bot that automatically detects QR Codes from uploaded images, creates isolated user threads, extracts embedded URLs, and keeps channels clean by automatically removing uploaded QR images after processing.
 
 Built with Node.js, Discord.js, Jimp, and jsQR.
 
@@ -9,8 +10,11 @@ Built with Node.js, Discord.js, Jimp, and jsQR.
 # Features
 
 - Automatic QR Code detection from uploaded images
-- Private DM delivery of extracted links
-- Automatic message deletion after processing
+- Automatic thread creation per user
+- Isolated QR processing sessions
+- Automatic QR image deletion after processing
+- Reusable user threads
+- Session timeout and automatic cleanup
 - Channel restriction support
 - Lightweight and fast processing
 - Environment variable configuration
@@ -32,11 +36,23 @@ Built with Node.js, Discord.js, Jimp, and jsQR.
 
 ```bash
 qr-bot/
+├── events/
+│   └── messageCreate.js
+│
+├── services/
+│   ├── qrReader.js
+│   ├── sessionManager.js
+│   └── threadManager.js
+│
+├── utils/
+│   └── resetTimeout.js
+│
 ├── index.js
 ├── package.json
-├── .env
+├── .env.example
 └── .gitignore
 ```
+````
 
 ---
 
@@ -84,6 +100,10 @@ Required bot permissions:
 - Read Message History
 - Send Messages
 - Manage Messages
+- Create Public Threads
+- Send Messages in Threads
+- Manage Threads
+- Attach Files
 
 ---
 
@@ -103,11 +123,23 @@ Bot online YourBotName#0000
 
 # How It Works
 
-1. User uploads an image containing a QR Code
-2. Bot downloads and processes the image
-3. QR Code content is extracted
-4. Extracted URL is sent privately via DM
-5. Original message is deleted automatically
+1. User uploads a QR Code image in the configured channel
+2. Bot automatically detects the QR Code
+3. A dedicated thread is created for the user
+4. QR content is extracted and sent inside the thread
+5. Uploaded QR image is deleted automatically
+6. User can continue sending QR Codes inside the same thread
+7. After inactivity timeout, the thread is deleted automatically
+
+---
+
+# Session System
+
+- Each user gets an isolated processing thread
+- Threads are automatically reused
+- Sessions expire after inactivity
+- Automatic cleanup prevents channel clutter
+- Multiple users can use the bot simultaneously without conflicts
 
 ---
 
@@ -140,16 +172,19 @@ Example Railway deployment flow:
 
 # Future Improvements
 
-- Sharp image processing support
 - ZXing QR engine migration
 - Multi QR detection
 - Anti-spam system
 - Logging system
 - Database integration
-- Dashboard and analytics
+- Queue system for processing
 
 ---
 
 # License
 
 MIT
+
+```
+
+```
