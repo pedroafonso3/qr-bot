@@ -45,7 +45,7 @@ qr-bot/
 ## Clone the repository
 
 ```bash
-git clone https://github.com/yourusername/qr-bot.git
+git clone https://github.com/pedroafonso3/qr-bot.git
 cd qr-bot
 ```
 
