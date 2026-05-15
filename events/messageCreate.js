@@ -24,21 +24,6 @@ module.exports = async (message) => {
       return;
     }
 
-    let session = getSession(message.author.id);
-
-    if (!session && isMainChannel) {
-      const thread = await createThread(message);
-
-      session = {
-        thread,
-        timeout: null,
-      };
-
-      createSession(message.author.id, session);
-    }
-
-    if (!session) return;
-
     const qrData = await readQRCode(attachment.url);
 
     if (!qrData) {
@@ -54,6 +39,21 @@ module.exports = async (message) => {
 
       return;
     }
+
+    let session = getSession(message.author.id);
+
+    if (!session && isMainChannel) {
+      const thread = await createThread(message);
+
+      session = {
+        thread,
+        timeout: null,
+      };
+
+      createSession(message.author.id, session);
+    }
+
+    if (!session) return;
 
     await session.thread.send({
       files: [attachment.url],
