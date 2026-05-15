@@ -42,7 +42,15 @@ module.exports = async (message) => {
     const qrData = await readQRCode(attachment.url);
 
     if (!qrData) {
-      await message.channel.send("❌ Nenhum QR detectado.");
+      const warningMessage = await message.channel.send(
+        "❌ Nenhum QR detectado.",
+      );
+
+      await message.delete().catch(() => {});
+
+      setTimeout(() => {
+        warningMessage.delete().catch(() => {});
+      }, 60000);
 
       return;
     }
